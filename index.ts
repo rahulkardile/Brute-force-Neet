@@ -48,10 +48,14 @@ async function solve(
     data: data,
   };
 
-  const response = await axios.request(config);
-  const parseData = ParserHTML(JSON.stringify(response.data));
+  try {
+    const response = await axios.request(config);
+    const parseData = ParserHTML(JSON.stringify(response.data));
 
-  return parseData;
+    return parseData;
+  } catch (error) {
+    console.log("exception");
+  }
 }
 
 function ParserHTML(htmlContent: string) {
@@ -83,22 +87,39 @@ function ParserHTML(htmlContent: string) {
 }
 
 async function main(rollNo: string) {
+  let solved = false;
   for (let year = 2007; year >= 2004; year--) {
-    for (let month = 4; month <= 12; month++) {
-      for (let day = 28; day <= 31; day++) {
-        console.log(`Proccesing at ${rollNo} for ${day}-${month}-${year}`);
-        const data = await solve(
+    if (solved) {
+      break;
+    }
+
+    for (let month = 1; month <= 12; month++) {
+      if (solved) {
+        break;
+      }
+
+      const dataPromises = [];
+      console.log(
+        `Sending request for the month of ${month} of the year ${year}`
+      );
+
+      for (let day = 1; day <= 31; day++) {
+        const DataPromises = solve(
           rollNo,
           day.toString(),
           month.toString(),
           year.toString()
         );
+        dataPromises.push(DataPromises);
+      }
 
+      const resolvedData = await Promise.all(dataPromises);
+      resolvedData.forEach((data) => {
         if (data) {
           console.log(data);
-          continue;
+          solved=true;
         }
-      }
+      });
     }
   }
 }

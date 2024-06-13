@@ -50,9 +50,14 @@ function solve(applicationNumber, day, month, year) {
             },
             data: data,
         };
-        const response = yield axios_1.default.request(config);
-        const parseData = ParserHTML(JSON.stringify(response.data));
-        return parseData;
+        try {
+            const response = yield axios_1.default.request(config);
+            const parseData = ParserHTML(JSON.stringify(response.data));
+            return parseData;
+        }
+        catch (error) {
+            console.log("exception");
+        }
     });
 }
 function ParserHTML(htmlContent) {
@@ -76,15 +81,19 @@ function ParserHTML(htmlContent) {
 function main(rollNo) {
     return __awaiter(this, void 0, void 0, function* () {
         for (let year = 2007; year >= 2004; year--) {
-            for (let month = 4; month <= 12; month++) {
-                for (let day = 28; day <= 31; day++) {
-                    console.log(`Proccesing at ${rollNo} for ${day}-${month}-${year}`);
-                    const data = yield solve(rollNo, day.toString(), month.toString(), year.toString());
+            for (let month = 1; month <= 12; month++) {
+                const dataPromises = [];
+                console.log(`Sending request for the month of ${month} of the year ${year}`);
+                for (let day = 1; day <= 31; day++) {
+                    const DataPromises = solve(rollNo, day.toString(), month.toString(), year.toString());
+                    dataPromises.push(DataPromises);
+                }
+                const resolvedData = yield Promise.all(dataPromises);
+                resolvedData.forEach((data) => {
                     if (data) {
                         console.log(data);
-                        continue;
                     }
-                }
+                });
             }
         }
     });
