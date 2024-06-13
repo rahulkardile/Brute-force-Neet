@@ -2,8 +2,6 @@ import axios from "axios";
 import cheerio from "cheerio";
 import qs from "qs";
 
-// let proccess = 0;
-
 async function solve(
   applicationNumber: string,
   day: string,
@@ -13,10 +11,10 @@ async function solve(
   let data = qs.stringify({
     "_csrf-frontend":
       "g8TKbSEh6Fmwr1FAZGjYNZYT8UwPfS4Oiwypw1CIKSrxsYQ6E07ZPPvgI3gILqgE7nqkH1hQbGTzVMHyIsRLZA==",
-    "Scorecardmodel[ApplicationNumber]": applicationNumber, //'240411183516'
-    "Scorecardmodel[Day]": day, //'08'
-    "Scorecardmodel[Month]": month, //'03'
-    "Scorecardmodel[Year]": year, //'2007'
+    "Scorecardmodel[ApplicationNumber]": applicationNumber,
+    "Scorecardmodel[Day]": day, 
+    "Scorecardmodel[Month]": month,
+    "Scorecardmodel[Year]": year, 
   });
 
   let config = {

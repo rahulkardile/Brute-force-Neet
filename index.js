@@ -108,7 +108,7 @@ function main(rollNo) {
 }
 function solveAllApplication() {
     return __awaiter(this, void 0, void 0, function* () {
-        for (let i = 240411183517; i < 240411199999; i++) {
+        for (let i = 240411111111; i < 240411199999; i++) {
             yield main(i.toString());
         }
     });
