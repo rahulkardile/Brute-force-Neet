@@ -117,11 +117,17 @@ async function main(rollNo: string) {
       resolvedData.forEach((data) => {
         if (data) {
           console.log(data);
-          solved=true;
+          solved = true;
         }
       });
     }
   }
 }
 
-main("240411183517");
+async function solveAllApplication() {
+  for (let i = 240411111111; i < 240411199999; i++) {
+    await main(i.toString());
+  }
+}
+
+solveAllApplication();

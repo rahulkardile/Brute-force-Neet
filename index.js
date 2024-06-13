@@ -80,8 +80,15 @@ function ParserHTML(htmlContent) {
 }
 function main(rollNo) {
     return __awaiter(this, void 0, void 0, function* () {
+        let solved = false;
         for (let year = 2007; year >= 2004; year--) {
+            if (solved) {
+                break;
+            }
             for (let month = 1; month <= 12; month++) {
+                if (solved) {
+                    break;
+                }
                 const dataPromises = [];
                 console.log(`Sending request for the month of ${month} of the year ${year}`);
                 for (let day = 1; day <= 31; day++) {
@@ -92,10 +99,18 @@ function main(rollNo) {
                 resolvedData.forEach((data) => {
                     if (data) {
                         console.log(data);
+                        solved = true;
                     }
                 });
             }
         }
     });
 }
-main("240411183517");
+function solveAllApplication() {
+    return __awaiter(this, void 0, void 0, function* () {
+        for (let i = 240411183517; i < 240411199999; i++) {
+            yield main(i.toString());
+        }
+    });
+}
+solveAllApplication();
