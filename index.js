@@ -15,15 +15,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const axios_1 = __importDefault(require("axios"));
 const cheerio_1 = __importDefault(require("cheerio"));
 const qs_1 = __importDefault(require("qs"));
-// let proccess = 0;
 function solve(applicationNumber, day, month, year) {
     return __awaiter(this, void 0, void 0, function* () {
         let data = qs_1.default.stringify({
             "_csrf-frontend": "g8TKbSEh6Fmwr1FAZGjYNZYT8UwPfS4Oiwypw1CIKSrxsYQ6E07ZPPvgI3gILqgE7nqkH1hQbGTzVMHyIsRLZA==",
-            "Scorecardmodel[ApplicationNumber]": applicationNumber, //'240411183516'
-            "Scorecardmodel[Day]": day, //'08'
-            "Scorecardmodel[Month]": month, //'03'
-            "Scorecardmodel[Year]": year, //'2007'
+            "Scorecardmodel[ApplicationNumber]": applicationNumber,
+            "Scorecardmodel[Day]": day,
+            "Scorecardmodel[Month]": month,
+            "Scorecardmodel[Year]": year,
         });
         let config = {
             method: "post",
